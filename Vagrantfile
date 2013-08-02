@@ -7,16 +7,17 @@ Vagrant::Config.run do |config|
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
   config.vm.define "database" do |cfg|
-    cfg.vm.forward_port 5432, 5432
+    cfg.vm.forward_port 5432, 5433
     cfg.vm.forward_port 80, 8080
     cfg.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = File.join(HERE, 'cookbooks')
       chef.add_recipe("apt")
       chef.add_recipe("postgresql::server")
-      chef.add_recipe("phppgadmin")
+      chef.add_recipe("postgresql::contrib")
+      # chef.add_recipe("postgresql::postgis")
       chef.json = {
         :postgresql => {
-          :version  => "9.1",
+          :version  => "9.2",
           :listen_addresses => "*",
           :pg_hba => [
             "host all all 0.0.0.0/0 md5",
@@ -29,5 +30,6 @@ Vagrant::Config.run do |config|
         }
       }
     end
+    cfg.vm.provision :shell, :path => "bootstrap.sh"
   end
 end

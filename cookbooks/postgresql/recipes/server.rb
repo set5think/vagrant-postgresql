@@ -10,7 +10,6 @@ pg_version = node["postgresql"]["version"]
 # install the package
 package "postgresql-#{pg_version}"
 
-
 # environment
 template "/etc/postgresql/#{pg_version}/main/environment" do
   source "environment.erb"
