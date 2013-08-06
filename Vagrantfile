@@ -13,12 +13,19 @@ Vagrant::Config.run do |config|
       chef.cookbooks_path = File.join(HERE, 'cookbooks')
       chef.add_recipe("apt")
       chef.add_recipe("postgresql::server")
+      chef.add_recipe("postgresql::libpq")
+      chef.add_recipe("postgresql::dev")
+      chef.add_recipe("postgresql::client")
+      chef.add_recipe("postgresql::plv8")
+      chef.add_recipe("postgresql::postgis")
       chef.add_recipe("postgresql::contrib")
-      # chef.add_recipe("postgresql::postgis")
       chef.json = {
         :postgresql => {
           :version  => "9.2",
           :listen_addresses => "*",
+          :postgis => {
+            :version => "2.0.3"
+          },
           :pg_hba => [
             "host all all 0.0.0.0/0 md5",
             "host all all ::1/0 md5",
@@ -30,6 +37,6 @@ Vagrant::Config.run do |config|
         }
       }
     end
-    cfg.vm.provision :shell, :path => "bootstrap.sh"
+    # cfg.vm.provision :shell, :path => "bootstrap.sh"
   end
 end

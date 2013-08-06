@@ -7,19 +7,30 @@
 # Copyright 2012, Phil Cohen
 #
 
-default["postgresql"]["version"]                         = "9.1"
+default["postgresql"]["version"]                         = "9.2"
 
 default["postgresql"]["environment_variables"]           = {}
 default["postgresql"]["pg_ctl_options"]                  = ""
 default["postgresql"]["pg_hba"]                          = []
 default["postgresql"]["pg_ident"]                        = []
 default["postgresql"]["start"]                           = "auto"  # auto, manual, disabled
+default["postgresql"]["initdb_options"]                  = "--locale=en_US.utf"
 
 #------------------------------------------------------------------------------
 # POSTGIS
 #------------------------------------------------------------------------------
 
-default["postgis"]["version"]                            = "1.5"
+default["postgresql"]["postgis"]["version"]              = "2.0.3"
+default["postgresql"]["postgis"]["download_url"]         = "http://download.osgeo.org/postgis/source"
+default["postgresql"]["postgis"]["geos"]["version"]      = "3.3.8"
+default["postgresql"]["postgis"]["geos"]["download_url"] = "http://download.osgeo.org/geos"
+
+#------------------------------------------------------------------------------
+# POSTGIS
+#------------------------------------------------------------------------------
+
+default["postgresql"]["plv8"]["v8"]["version"]           = "3.7.12.22"
+default["postgresql"]["plv8"]["download_url"]            = "https://code.google.com/p/plv8js/"
 
 #------------------------------------------------------------------------------
 # FILE LOCATIONS
